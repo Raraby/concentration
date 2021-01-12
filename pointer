@@ -1,0 +1,20 @@
+
+Private Sub Worksheet_SelectionChange(ByVal Target As Range)
+    Dim clickcellx As Integer, clickcelly As Integer
+    If Target.Count > 1 Then End
+        clickcellx = Target.Column
+        clickcelly = Target.Row
+        Cells(1, "X").Value = clickcellx
+        Cells(1, "Y").Value = clickcelly
+        If Cells(1, "D").Value = "Concentration" Then
+            If 1 < Cells(1, "x").Value And Cells(1, "x").Value < 2 + Cells(2, "S").Value Then
+                If 2 < Cells(1, "y").Value And Cells(1, "y").Value < 3 + Cells(2, "S").Value Then
+                Cells(1, "Z").Value = Cells(1, "Z").Value + 1
+                End If
+            End If
+        End If
+End Sub
+
+
+
+
