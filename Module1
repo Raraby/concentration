@@ -1,0 +1,419 @@
+
+
+
+Option Explicit
+Private Declare PtrSafe Sub Sleep Lib "kernel32" (ByVal dwMilliseconds As LongPtr)
+'Private Declare Sub Sleep Lib "kernel32" (ByVal dwMilliseconds As Long)
+
+Sub wizard()
+    Dim checkgenerate As String
+    If Cells(1, 1).Value <> "You're now playing" Then
+        checkgenerate = MsgBox("Are you sure to change the sheet?", vbYesNo + vbQuestion, "Wizard")
+        If checkgenerate = vbYes Then
+            Call Generate
+        ElseIf checkgenerate = vbNo Then
+            End
+        ElseIf checkgenerate = vbCancel Then
+            End
+        End If
+    End If
+    
+    
+    If VarType(Cells(1, "I").Value) = 2 Or VarType(Cells(1, "I").Value) = 5 Then
+        If 3 < Cells(1, "I").Value And Cells(1, "I").Value < 11 Then
+            Call Concentration
+        Else
+            MsgBox "Put the range of the concentration in Cells(1, I) (4 ~ 10)"
+            End
+        End If
+    Else
+        MsgBox "Put the range of the concentration in Cells(1, I) (4 ~ 10)"
+        End
+    End If
+    
+    
+    
+    
+End Sub
+Sub Concentration()
+
+
+    
+    MsgBox "start the concentration"
+    
+    'MsgBox ActiveSheet.Shapes.Count
+    'Dim scrollbar As Object
+    'Set scrollbar = ActiveSheet.ScrollBars.Add(0, 0, 100, 50)
+    'With ActiveSheet.Shapes(1)
+        '.Name = "start"
+        '.Top = 10
+        '.Left = 10
+        '.Width = 100
+        '.Height = 50
+        '.OnAction = "wizard"
+    'End With
+    
+    
+    
+    
+    'Dim rbreak As Integer
+    'rbreak = 0
+    
+    'Do
+        'MsgBox "Please input the concentration range in (1, I) and please wait a moment   (the range should be from 4 to 10)"
+        'DoEvents
+        'Sleep 10000
+        'If VarType(Cells(1, "I").Value) = 2 Then
+            'If 4 <= Cells(1, "I").Value And Cells(1, "I").Value <= 10 Then
+                'rbreak = 1
+            'End If
+        'End If
+    'Loop Until rbreak = 0
+
+    Dim ranges As Integer, rangese As String, rangesei As String
+    ranges = Cells(1, "I").Value
+    
+    If ranges = 4 Then
+        rangese = "E"
+    ElseIf ranges = 5 Then
+        rangese = "F"
+    ElseIf ranges = 6 Then
+        rangese = "G"
+    ElseIf ranges = 7 Then
+        rangese = "H"
+    ElseIf ranges = 8 Then
+        rangese = "I"
+    ElseIf ranges = 9 Then
+        rangese = "J"
+    ElseIf ranges = 10 Then
+        rangese = "K"
+    ElseIf ranges = 11 Then
+        rangese = "L"
+    End If
+    
+    If ranges = 4 Then
+        rangesei = "X"
+    ElseIf ranges = 5 Then
+        rangesei = "Y"
+    ElseIf ranges = 6 Then
+        rangesei = "Z"
+    ElseIf ranges = 7 Then
+        rangesei = "AA"
+    ElseIf ranges = 8 Then
+        rangesei = "AB"
+    ElseIf ranges = 9 Then
+        rangesei = "AC"
+    ElseIf ranges = 10 Then
+        rangesei = "AD"
+    ElseIf ranges = 10 Then
+        rangesei = "AE"
+    End If
+    
+    
+    Call Debugs(ranges, rangese, rangesei)
+    
+    Call ConcentrationInitialize(ranges, rangese)
+    
+    Call Border(ranges, rangese, rangesei)
+    
+    Call Numbers(ranges, rangesei)
+    
+    Call Ready(ranges, rangese)
+    
+    Call Start(ranges, rangese, rangesei)
+    
+    Call Result(ranges)
+    
+    Call Reset(ranges, rangese, rangesei)
+    
+End Sub
+Sub Debugs(ranges As Integer, rangese As String, rangesei As String)
+    Cells(6, "S").Value = Cells(6, "S").Value + 1
+    Cells(2, "S").Value = ranges
+    Cells(3, "S").Value = rangese
+    Cells(4, "S").Value = ranges * ranges
+    Cells(5, "S").Value = rangesei
+    
+    'Private Declare PtrSafe Sub Sleep Lib ・ｽE・ｽgkernel32・ｽE・ｽh (ByVal dwMilliseconds As LongPtr)
+    'Private Declare Sub Sleep Lib ・ｽE・ｽgkernel32・ｽE・ｽh (ByVal dwMilliseconds As Long)
+    
+End Sub
+Sub Generate()
+    With Range("A1:AD12")
+        .HorizontalAlignment = xlCenter
+        .Value = ""
+        .Borders(xlEdgeTop).LineStyle = xlLineStyleNone
+        .Borders(xlEdgeBottom).LineStyle = xlLineStyleNone
+        .Borders(xlEdgeRight).LineStyle = xlLineStyleNone
+        .Borders(xlEdgeLeft).LineStyle = xlLineStyleNone
+        .Borders(xlInsideVertical).LineStyle = xlLineStyleNone
+        .Borders(xlInsideHorizontal).LineStyle = xlLineStyleNone
+    End With
+    
+    Application.DisplayAlerts = False
+    Cells(1, 1).Value = ""
+    Range("A1:C1").Merge
+    Cells(1, "A").Value = "You're now playing"
+    Range("D1:E1").Merge
+    With Range("A1:E1")
+        .Borders(xlEdgeTop).LineStyle = xlContinuous
+        .Borders(xlEdgeBottom).LineStyle = xlContinuous
+        .Borders(xlEdgeRight).LineStyle = xlContinuous
+        .Borders(xlEdgeLeft).LineStyle = xlContinuous
+        .Borders(xlInsideVertical).LineStyle = xlContinuous
+        .Borders(xlInsideHorizontal).LineStyle = xlContinuous
+    End With
+    Cells(1, "F").Value = "button"
+    With Range("H1:I1")
+        .Borders(xlEdgeTop).LineStyle = xlContinuous
+        .Borders(xlEdgeBottom).LineStyle = xlContinuous
+        .Borders(xlEdgeRight).LineStyle = xlContinuous
+        .Borders(xlEdgeLeft).LineStyle = xlContinuous
+        .Borders(xlInsideVertical).LineStyle = xlContinuous
+        .Borders(xlInsideHorizontal).LineStyle = xlContinuous
+    End With
+    Range("J1:K1").Merge
+    Range("L1:M1").Merge
+    With Range("J1:M1")
+        .Borders(xlEdgeTop).LineStyle = xlContinuous
+        .Borders(xlEdgeTop).Weight = xlMedium
+        .Borders(xlEdgeBottom).LineStyle = xlContinuous
+        .Borders(xlEdgeBottom).Weight = xlMedium
+        .Borders(xlEdgeRight).LineStyle = xlContinuous
+        .Borders(xlEdgeRight).Weight = xlMedium
+        .Borders(xlEdgeLeft).LineStyle = xlContinuous
+        .Borders(xlEdgeLeft).Weight = xlMedium
+        .Borders(xlInsideVertical).LineStyle = xlContinuous
+        .Borders(xlInsideVertical).Weight = xlMedium
+        .Borders(xlInsideHorizontal).LineStyle = xlContinuous
+        .Borders(xlInsideHorizontal).Weight = xlMedium
+    End With
+    Range("N1:O1").Merge
+    Cells(1, "N").Value = "scroll"
+    Application.DisplayAlerts = True
+End Sub
+Sub ConcentrationInitialize(ranges As Integer, rangese As String)
+    Cells(1, "D").Value = "Concentration"
+    Range("B3:K12").Borders.LineStyle = xlLineStyleNone
+    Range("B3:K12").Value = ""
+    Range("U3:AD12").Borders.LineStyle = xlLineStyleNone
+    Range("U3:AD12").Value = ""
+    Range("B3:" + rangese + CStr(2 + ranges)).Value = "Loading..."
+    
+    Cells(3, "O").Value = ranges * 2
+    Cells(4, "O").Value = 0
+    Cells(1, "AA").Value = 0
+    Cells(5, "M").Value = ""
+    Cells(5, "P").Value = ""
+    Application.DisplayAlerts = False
+    Range("M3:N4").Merge True
+    Range("O3:P4").Merge True
+    Range("M5:O5").Merge
+    Application.DisplayAlerts = True
+    Range("S1:AA7").Font.ColorIndex = 2
+    
+    With Range("M3:P5")
+        .Borders(xlEdgeTop).LineStyle = xlContinuous
+        .Borders(xlEdgeTop).Weight = xlMedium
+        .Borders(xlEdgeBottom).LineStyle = xlContinuous
+        .Borders(xlEdgeBottom).Weight = xlMedium
+        .Borders(xlEdgeRight).LineStyle = xlContinuous
+        .Borders(xlEdgeRight).Weight = xlMedium
+        .Borders(xlEdgeLeft).LineStyle = xlContinuous
+        .Borders(xlEdgeLeft).Weight = xlMedium
+        .Borders(xlInsideVertical).LineStyle = xlContinuous
+        .Borders(xlInsideVertical).Weight = xlMedium
+        .Borders(xlInsideHorizontal).LineStyle = xlContinuous
+        .Borders(xlInsideHorizontal).Weight = xlMedium
+    End With
+
+    Cells(1, "J").Value = "Score multiplier : " + CStr(1 + (ranges - 4) / 2) + "倍"
+    Cells(1, "L").Value = "Choices : " + CStr(ranges ^ 2) + "回"
+    Cells(3, "M").Value = "Chances"
+    Cells(4, "M").Value = "Current Score"
+End Sub
+Sub Border(ranges As Integer, rangese As String, rangesei As String)
+    With Range("B3:" + rangese + CStr(2 + ranges))
+        .Borders(xlEdgeTop).LineStyle = xlContinuous
+        .Borders(xlEdgeTop).Weight = xlMedium
+        .Borders(xlEdgeBottom).LineStyle = xlContinuous
+        .Borders(xlEdgeBottom).Weight = xlMedium
+        .Borders(xlEdgeRight).LineStyle = xlContinuous
+        .Borders(xlEdgeRight).Weight = xlMedium
+        .Borders(xlEdgeLeft).LineStyle = xlContinuous
+        .Borders(xlEdgeLeft).Weight = xlMedium
+        .Borders(xlInsideVertical).LineStyle = xlContinuous
+        .Borders(xlInsideVertical).Weight = xlMedium
+        .Borders(xlInsideHorizontal).LineStyle = xlContinuous
+        .Borders(xlInsideHorizontal).Weight = xlMedium
+    End With
+    
+    With Range("U3:" + rangesei + CStr(2 + ranges))
+        .Borders(xlEdgeTop).LineStyle = xlContinuous
+        .Borders(xlEdgeTop).Weight = xlMedium
+        .Borders(xlEdgeBottom).LineStyle = xlContinuous
+        .Borders(xlEdgeBottom).Weight = xlMedium
+        .Borders(xlEdgeRight).LineStyle = xlContinuous
+        .Borders(xlEdgeRight).Weight = xlMedium
+        .Borders(xlEdgeLeft).LineStyle = xlContinuous
+        .Borders(xlEdgeLeft).Weight = xlMedium
+        .Borders(xlInsideVertical).LineStyle = xlContinuous
+        .Borders(xlInsideVertical).Weight = xlMedium
+        .Borders(xlInsideHorizontal).LineStyle = xlContinuous
+        .Borders(xlInsideHorizontal).Weight = xlMedium
+    End With
+    
+End Sub
+Sub Numbers(ranges As Integer, rangesei As String)
+    Dim nbreak As Integer, checker As Double
+    
+    Dim x As Integer, y As Integer, xx As Integer, yy As Integer, xxx As Integer, yyy As Integer, numx As Integer, numy As Integer
+    
+    Do
+        nbreak = ranges * ranges + 1
+        For x = 1 To ranges
+            For y = 1 To ranges
+                Randomize
+                Cells(2 + y, 20 + x).Value = Rnd
+            Next y
+        Next x
+        
+        For xx = 1 To ranges
+            For yy = 1 To ranges
+                checker = Cells(2 + y, 20 + x).Value
+                
+                For xxx = 1 To ranges
+                    For yyy = 1 To ranges
+                        If checker = Cells(2 + y, 20 + x) Then
+                            nbreak = nbreak - 1
+                        End If
+                    Next yyy
+                Next xxx
+                
+            Next yy
+        Next xx
+    Loop While nbreak = 0
+    
+    Dim num As Integer
+    
+    For num = 1 To ranges * ranges
+        Dim fbreak As Integer
+        fbreak = 0
+        For numx = 1 To ranges
+            For numy = 1 To ranges
+                If Cells(2 + numy, 20 + numx).Value = "" Then
+                ElseIf WorksheetFunction.Min(Range("U3", rangesei + CStr(2 + ranges))) = Cells(2 + numy, 20 + numx).Value And Cells(2 + numy, 20 + numx).Value <> "" Then
+                    Cells(2 + numy, 20 + numx).Value = Round((num + 1) / 2 - 0.0001)
+                    fbreak = 1
+                    Cells(7, "S").Value = Cells(7, "S").Value + 1
+                End If
+                If fbreak = 1 Then
+                    Exit For
+                End If
+            Next numy
+            If fbreak = 1 Then
+            
+                    Exit For
+                End If
+        Next numx
+    Next num
+    
+    
+End Sub
+Sub Ready(ranges As Integer, rangese As String)
+    Range("B3:" + rangese + CStr(2 + ranges)).Value = ""
+End Sub
+Sub Start(ranges As Integer, rangese As String, rangesei As String)
+    Dim cellchanges As Integer, cellx As Integer, celly As Integer, cellvalue As Integer, pair As Integer, pairx As Integer, pairy As Integer
+    Dim times As Integer
+    For times = 1 To ranges ^ 2
+        cellchanges = Cells(1, "Z").Value
+        Do
+            cellchanges = Cells(1, "Z").Value
+            DoEvents
+            Sleep 200
+        Loop Until cellchanges <> Cells(1, "Z").Value
+        
+        Cells(3, "O").Value = Cells(3, "O").Value - 1
+        
+        cellx = Cells(1, "X") + 19
+        celly = Cells(1, "Y")
+        cellvalue = Cells(celly, cellx).Value
+        If Cells(1, "AA").Value = 0 Then
+            Cells(Cells(1, "Y").Value, Cells(1, "X").Value).Value = cellvalue
+            pair = cellvalue
+            pairx = Cells(1, "X")
+            pairy = Cells(1, "Y")
+            Cells(1, "AA").Value = 1
+        ElseIf Cells(1, "AA").Value = 1 Then
+            If cellvalue = pair Then
+                Cells(Cells(1, "Y").Value, Cells(1, "X").Value).Value = cellvalue
+                Cells(4, "O").Value = Cells(4, "O").Value + cellvalue * (1 + (ranges - 4) / 2)
+                Cells(5, "M").Value = "You found the " + CStr(cellvalue) + " pair!"
+                Cells(5, "P").Value = " +" + CStr(cellvalue * (1 + (ranges - 4) / 2)) + "! "
+            Else
+                Cells(Cells(1, "Y").Value, Cells(1, "X").Value).Value = cellvalue
+                Sleep 2000
+                Cells(Cells(1, "Y"), Cells(1, "X")).Value = ""
+                Cells(pairy, pairx).Value = ""
+            End If
+            Cells(1, "AA").Value = 0
+        End If
+        
+        If Cells(3, "O").Value = 0 Then
+            Exit For
+        End If
+        
+    Next times
+End Sub
+Sub Result(ranges As Integer)
+    Sleep 1000
+    Cells(5, "M").Value = ""
+    Cells(5, "P").Value = ""
+    MsgBox "Your score was " + CStr(Cells(4, "O").Value) + "!"
+End Sub
+Sub Reset(ranges As Integer, rangese As String, rangesei As String)
+    With Range("B3:" + rangese + CStr(2 + ranges))
+    .Value = ""
+        .Borders(xlEdgeTop).LineStyle = xlLineStyleNone
+        .Borders(xlEdgeBottom).LineStyle = xlLineStyleNone
+        .Borders(xlEdgeRight).LineStyle = xlLineStyleNone
+        .Borders(xlEdgeLeft).LineStyle = xlLineStyleNone
+        .Borders(xlInsideVertical).LineStyle = xlLineStyleNone
+        .Borders(xlInsideHorizontal).LineStyle = xlLineStyleNone
+    End With
+    
+    With Range("U3:" + rangesei + CStr(2 + ranges))
+        .Value = ""
+        .Borders(xlEdgeTop).LineStyle = xlLineStyleNone
+        .Borders(xlEdgeBottom).LineStyle = xlLineStyleNone
+        .Borders(xlEdgeRight).LineStyle = xlLineStyleNone
+        .Borders(xlEdgeLeft).LineStyle = xlLineStyleNone
+        .Borders(xlInsideVertical).LineStyle = xlLineStyleNone
+        .Borders(xlInsideHorizontal).LineStyle = xlLineStyleNone
+    End With
+    
+    With Range("A1:AD12")
+        .Value = ""
+        .UnMerge
+        .Borders(xlEdgeTop).LineStyle = xlLineStyleNone
+        .Borders(xlEdgeBottom).LineStyle = xlLineStyleNone
+        .Borders(xlEdgeRight).LineStyle = xlLineStyleNone
+        .Borders(xlEdgeLeft).LineStyle = xlLineStyleNone
+        .Borders(xlInsideVertical).LineStyle = xlLineStyleNone
+        .Borders(xlInsideHorizontal).LineStyle = xlLineStyleNone
+    End With
+    
+    With Range("M3:P5")
+        .Borders(xlEdgeTop).LineStyle = xlLineStyleNone
+        .Borders(xlEdgeBottom).LineStyle = xlLineStyleNone
+        .Borders(xlEdgeRight).LineStyle = xlLineStyleNone
+        .Borders(xlEdgeLeft).LineStyle = xlLineStyleNone
+        .Borders(xlInsideVertical).LineStyle = xlLineStyleNone
+        .Borders(xlInsideHorizontal).LineStyle = xlLineStyleNone
+    End With
+    
+    Cells(1, "D").Value = ""
+    Range("S1:AA7").Font.ColorIndex = 1
+End Sub
+
